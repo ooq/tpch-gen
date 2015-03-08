@@ -36,7 +36,8 @@ export TPCH_ROOT=/mnt/my-tpch-kit/tpch-dbgen
 export TPCH_SCALE_FACTOR=30
 
 #for t in customer lineitem nation orders partsupp part region supplier 
-for t in customer lineitem orders partsupp part 
+#for t in customer lineitem orders partsupp part 
+for t in $1
 do
 table=${cmap[$t]}
 count=${counts[$t]}
@@ -53,8 +54,8 @@ do
     -b ${TPCH_ROOT}/dists.dss  \
     -f &&\
     #/root/tachyon/bin/tachyon tfs rm ${FLATFILE_HDFS_ROOT}/${t}/${t}_${c}_${DSDGEN_TOTAL_THREADS}.dat &&\
-    /root/tachyon/bin/tachyon tfs copyFromLocal ./${t}.tbl.${c} /tpch${TPCH_SCALE_FACTOR}/${t}/${t}.tbl.${c} &&\
-    rm ./${t}.tbl.${c} &
+    /root/tachyon/bin/tachyon tfs copyFromLocal ./${t}.tbl.${c} /tpch${TPCH_SCALE_FACTOR}/${t}/${t}.tbl.${c} &
+    #rm ./${t}.tbl.${c} &
 done
 done
 wait

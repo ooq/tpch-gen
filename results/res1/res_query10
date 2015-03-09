@@ -1,0 +1,68 @@
+Spark assembly has been built with Hive, including Datanucleus jars on classpath
+scan complete in 2ms
+Connecting to jdbc:hive2://localhost:10000
+log4j:WARN No appenders could be found for logger (org.apache.thrift.transport.TSaslTransport).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Connected to: Spark SQL (version 1.3.0)
+Driver: Spark Project Core (version 1.3.1-SNAPSHOT)
+Transaction isolation: TRANSACTION_REPEATABLE_READ
+Beeline version 1.3.1-SNAPSHOT by Apache Hive
+0: jdbc:hive2://localhost:10000> select
+. . . . . . . . . . . . . . . .> c_custkey,
+. . . . . . . . . . . . . . . .> c_name,
+. . . . . . . . . . . . . . . .> sum(l_extendedprice * (1 - l_discount)) as revenue,
+. . . . . . . . . . . . . . . .> c_acctbal,
+. . . . . . . . . . . . . . . .> n_name,
+. . . . . . . . . . . . . . . .> c_address,
+. . . . . . . . . . . . . . . .> c_phone,
+. . . . . . . . . . . . . . . .> c_comment
+. . . . . . . . . . . . . . . .> from
+. . . . . . . . . . . . . . . .> customer,
+. . . . . . . . . . . . . . . .> orders,
+. . . . . . . . . . . . . . . .> lineitem,
+. . . . . . . . . . . . . . . .> nation
+. . . . . . . . . . . . . . . .> where
+. . . . . . . . . . . . . . . .> c_custkey = o_custkey
+. . . . . . . . . . . . . . . .> and l_orderkey = o_orderkey
+. . . . . . . . . . . . . . . .> and o_orderdate >= '1993-07-01'
+. . . . . . . . . . . . . . . .> and o_orderdate < '1993-10-01'
+. . . . . . . . . . . . . . . .> and l_returnflag = 'R'
+. . . . . . . . . . . . . . . .> and c_nationkey = n_nationkey
+. . . . . . . . . . . . . . . .> group by
+. . . . . . . . . . . . . . . .> c_custkey,
+. . . . . . . . . . . . . . . .> c_name,
+. . . . . . . . . . . . . . . .> c_acctbal,
+. . . . . . . . . . . . . . . .> c_phone,
+. . . . . . . . . . . . . . . .> n_name,
+. . . . . . . . . . . . . . . .> c_address,
+. . . . . . . . . . . . . . . .> c_comment
+. . . . . . . . . . . . . . . .> order by
+. . . . . . . . . . . . . . . .> revenue desc
+. . . . . . . . . . . . . . . .> limit 20;
++------------+---------------------+--------------------+------------+-----------------+---------------------------+
+| c_custkey  |       c_name        |      revenue       | c_acctbal  |     n_name      |             c_address     |
++------------+---------------------+--------------------+------------+-----------------+---------------------------+
+| 286678     | Customer#000286678  | 947973.2365000001  | 8762.8     | FRANCE          | bfV4h9JypwnU,HjRD         |
+| 3908338    | Customer#003908338  | 884215.3402999999  | 2553.76    | ALGERIA         | XKd5Gm7AtB1JFYx0          |
+| 915547     | Customer#000915547  | 875260.6610000001  | 6542.17    | UNITED KINGDOM  | 3ZhUtS,WtIwuZRgO4Vgl7iZ2  |
+| 1169950    | Customer#001169950  | 835002.0025        | -397.3     | VIETNAM         | QZ8WNbNDO8uQdrLlUjeW      |
+| 1972033    | Customer#001972033  | 831113.8645        | 8774.65    | JAPAN           | Kzuwx6dUTn4dqRtofr        |
+| 2750404    | Customer#002750404  | 815640.9774        | 1184.1     | KENYA           | d5vUX ifhsEyi6Oev4KTl3w3h |
+| 3031681    | Customer#003031681  | 803929.6619        | -972.94    | BRAZIL          | 4elUzN2vO HwitcMl2DvtP    |
+| 2135077    | Customer#002135077  | 798676.6531        | 6706.23    | CHINA           | 6avZzSLgDJU               |
+| 187061     | Customer#000187061  | 794917.4079        | 272.51     | ETHIOPIA        | XWQn4ffdlhqc              |
+| 2346817    | Customer#002346817  | 790287.1022        | 2137.09    | EGYPT           | SPf4qI91ohuAnmVpqJb8JDi9, |
+| 97120      | Customer#000097120  | 788733.9621        | 5730.4     | INDIA           | TpSGLquEyfsqJU            |
+| 211375     | Customer#000211375  | 785099.2244        | 5529.48    | MOZAMBIQUE      | 8XOovGiKKHqKdHHXEpcf9 gA1 |
+| 2037451    | Customer#002037451  | 777622.5454999999  | 4994.29    | JAPAN           | 2o3 PtqpNC04MKz3ygYkeBp0z |
+| 920851     | Customer#000920851  | 759836.9698000002  | 3874.93    | GERMANY         | fkxONMg6NS1zsa5BvGeVlDQ,  |
+| 1878241    | Customer#001878241  | 758754.9023        | 8353.69    | ETHIOPIA        | PcQsd,3RmezKe             |
+| 3384661    | Customer#003384661  | 757722.3263        | 3248.34    | VIETNAM         | AVqniXHbt4732HbEPVd       |
+| 2337616    | Customer#002337616  | 756472.0672000002  | 9686.56    | MOZAMBIQUE      | 8J7c851u,BshFzAPp8NSRlNXd |
+| 1154416    | Customer#001154416  | 748578.3419        | 8277.56    | ALGERIA         | lHp 4T46nOULCXQ8PnJ2SvQKv |
+| 1195678    | Customer#001195678  | 739098.7113000001  | 5321.03    | INDONESIA       | hlMaP6b7xT02Ly,4dtOZ      |
+| 2021227    | Customer#002021227  | 738351.4408999999  | 6900.23    | CANADA          | S3FGYMrrNja6n2            |
++------------+---------------------+--------------------+------------+-----------------+---------------------------+
+20 rows selected (91.57 seconds)
+0: jdbc:hive2://localhost:10000> Closing: 0: jdbc:hive2://localhost:10000

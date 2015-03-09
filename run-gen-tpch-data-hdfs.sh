@@ -7,7 +7,7 @@ for t in customer
 do
 cat dn.txt | while read h
 do 
-  ssh $h "cd /mnt/my-tpch-kit; ./gen-tpch-data.sh $t" < /dev/null &
+  ssh $h "cd /mnt/my-tpch-kit; ./gen-tpch-data-hdfs.sh $t" < /dev/null &
 done
 done
 wait
